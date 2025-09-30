@@ -18,3 +18,6 @@ PS C:\Scripts> .\Unattended-Export-SPO-Permissions.ps1 `
 >>     -TenantName "TenantName" `
 >>     -OutFolder "C:\SPExport" `
 >>     -IncludeListPermissions
+
+##See "Unatended-Prereqs.txt" for further help
+
