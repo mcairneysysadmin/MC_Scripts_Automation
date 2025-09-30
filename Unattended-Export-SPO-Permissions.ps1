@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory=$true)][string]$AppId,             # App Registration (Client) ID
     [Parameter(Mandatory=$true)][string]$CertPath,          # Path to .pfx
     [Parameter(Mandatory=$true)][string]$CertPasswordPlain, # Password you set when exporting .pfx
-    [Parameter(Mandatory=$true)][string]$TenantName,        # e.g. "standardclubltd"
+    [Parameter(Mandatory=$true)][string]$TenantName,        # e.g. "tenantname"
     [Parameter()][string]$OutFolder = "C:\SPExport",
     [switch]$IncludeListPermissions
 )
@@ -117,5 +117,6 @@ $sitePerms | Export-Csv -Path $sitePermsCsvPath -NoTypeInformation -Encoding UTF
 if ($IncludeListPermissions) {
     $listPerms | Export-Csv -Path $listPermsCsvPath -NoTypeInformation -Encoding UTF8
 }
+
 
 Write-Host "Export complete! Outputs saved in $OutFolder" -ForegroundColor Green
