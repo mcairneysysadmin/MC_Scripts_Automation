@@ -13,7 +13,7 @@
 #Generate the keys if you require them first
   #Step 1
 $cert = New-SelfSignedCertificate `
-    -Subject "CN=PnPAppCertnepia" `
+    -Subject "CN=PnPAppCert" `
     -KeySpec Signature `
     -KeyExportPolicy Exportable `
     -KeyLength 2048 `
@@ -38,4 +38,5 @@ Connect-PnPOnline -Url "https://<tenant>-admin.sharepoint.com" `
     -ClientId "0000-0000-0000-0000-0000" `
     -Tenant "0000-0000-0000-0000-0000" `
     -CertificatePath "C:\Certs\PnPAppCert.pfx" `
+
     -CertificatePassword $CertPassword	
