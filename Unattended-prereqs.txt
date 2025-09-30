@@ -1,0 +1,41 @@
+##Populate the below with your cert location, app/tenantid etc. 
+.\Unattended-Export-SPO-PermissionsNepia.ps1 `
+	-TenantId "0000-0000-0000-0000-0000" `
+	-AppId "0000-0000-0000-0000-0000" `
+    -CertPath "C:\Certs\PnPAppCert.pfx" `
+    -CertPasswordPlain "SetPassword" `
+    -TenantName "TENANTNAME" `
+    -OutFolder "C:\SPExport" `
+    -IncludeListPermissions
+	
+	
+	
+#Generate the keys if you require them first
+  #Step 1
+$cert = New-SelfSignedCertificate `
+    -Subject "CN=PnPAppCertnepia" `
+    -KeySpec Signature `
+    -KeyExportPolicy Exportable `
+    -KeyLength 2048 `
+    -CertStoreLocation "Cert:\CurrentUser\My" `
+    -KeyAlgorithm RSA  
+  
+  
+  #Step 2 
+$certPassword = (ConvertTo-SecureString -String "Mc161184!" -Force -AsPlainText)
+
+Export-PfxCertificate -Cert $cert `
+    -FilePath "C:\Certs\PnPAppCert.pfx" `
+    -Password $certPassword
+
+Export-Certificate -Cert $cert `
+    -FilePath "C:\Certs\PnPAppCert.cer"
+	
+	#Step 3
+$CertPassword = ConvertTo-SecureString "YourStrongPassword123!" -AsPlainText -Force
+
+Connect-PnPOnline -Url "https://<tenant>-admin.sharepoint.com" `
+    -ClientId "0000-0000-0000-0000-0000" `
+    -Tenant "0000-0000-0000-0000-0000" `
+    -CertificatePath "C:\Certs\PnPAppCert.pfx" `
+    -CertificatePassword $CertPassword	
